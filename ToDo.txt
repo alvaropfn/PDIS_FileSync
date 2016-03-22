@@ -1,0 +1,6 @@
+rn01 comunicação TCP/IP
+rn02 login
+rn03 encapsular requisições em objetos (Request)
+rn04 encapsular respostas em objetos (Replay)
+rn05 Request/Replay funciona com base em Cliente/Servidor
+rn06 separar claramente codigos da comunicação da aplicação
