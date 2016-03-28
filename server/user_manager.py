@@ -14,10 +14,16 @@ class UserManager:
     def check_user(self, username, password):
         user = self.cursor.execute('SELECT * FROM USERS WHERE NAME = ? AND PWD = ?', (username, password)).fetchone()
         if (user != None):
-            print('existe')
+            return True
         else:
-            print('nao existe')
+            return False
+
+    def create_user(self, username, password):
+        try:
+            self.cursor.execute('INSERT INTO USERS(NAME, PWD) VALUES(?, ?)', (username, password))
+            return 'User created'
+        except sqlite3.Error as e:
+            return 'Could not create user. ' + e.args[0]
 
 
 usermanager = UserManager()
-usermanager.check_user('nome', 'senha')
