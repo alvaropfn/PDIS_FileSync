@@ -1,6 +1,5 @@
 import socket
-from server.handler import Handler
-from server.user_manager import UserManager
+from file_sync.server.handler import Handler
 
 
 class Server:
@@ -12,5 +11,11 @@ class Server:
             client_socket, address = self.sock.accept()
             handler = Handler(client_socket, address)
             handler.run()
+
+    def __del__(self):
+        self.sock.close()
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        self.sock.close()
 
 server = Server()
