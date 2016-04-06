@@ -13,14 +13,15 @@ class searcherThread(threading.Thread):
     def run(self):
         try:
             self.pathSearch(self.path)
-        except :
-            print("erro na execução do método pathSearch")
+        except Exception as excecao:
+            print(excecao)
 
     def pathSearch(self, oldPath):
+        pdis_sinc = open("pdis_sinc.txt", "a")
+
         #create new threads to start search in subdirectories
         for dir in listDirs(oldPath):
             newPath = os.path.join(oldPath, dir)
-            #self._tstate_lock()
             id = self.id+1
 
             try:
@@ -29,13 +30,13 @@ class searcherThread(threading.Thread):
             except:
                 print("erro na execução do método searcherThread")
 
-                #print all folders in this directory
-        # for folder in listDirs(oldPath):
-            # print(os.path.join(oldPath, folder))
-
             #print all files in this directory
         for file in listFiles(oldPath):
-            print(os.path.join(oldPath, file))
+            novoCaminho = os.path.join(oldPath, file)
+            # /caminho/arquivo.tipo,013291301932\n
+            pdis_sinc.write(novoCaminho + "\t" + str(os.stat(novoCaminho).st_mtime) + "\n")
+
+        pdis_sinc.close()
 
 '''searcherThread ends'''
 ########################################################
