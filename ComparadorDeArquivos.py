@@ -12,12 +12,10 @@ class ComparadorDeArquivos(object):
         self.filePath2 = filepaths[1]
         try:
             self.statbuf1 = os.stat(self.filePath1).st_mtime
-            print(self.statbuf1)
         except:
             print("Arquivo1 não encontrado")
         try:
             self.statbuf2 = os.stat(self.filePath2).st_mtime
-            print(self.statbuf2)
         except:
             print("Arquivo2 não encontrado")
 
@@ -37,5 +35,3 @@ class ComparadorDeArquivos(object):
 
 '''ComparadorDeArquivos ends'''
 
-teste = ComparadorDeArquivos(myPaths)
-teste.run()

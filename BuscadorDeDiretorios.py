@@ -17,7 +17,7 @@ class searcherThread(threading.Thread):
             print(excecao)
 
     def pathSearch(self, oldPath):
-        pdis_sinc = open("pdis_sinc.txt", "a")
+        pdis_sinc = open("pdis_sin.txt", "a")
 
         #create new threads to start search in subdirectories
         for dir in listDirs(oldPath):
@@ -34,7 +34,7 @@ class searcherThread(threading.Thread):
         for file in listFiles(oldPath):
             novoCaminho = os.path.join(oldPath, file)
             # /caminho/arquivo.tipo,013291301932\n
-            pdis_sinc.write(novoCaminho + "\t" + str(os.stat(novoCaminho).st_mtime) + "\n")
+            pdis_sinc.write(novoCaminho + "," + str(os.stat(novoCaminho).st_mtime + 1) + "\n")
 
         pdis_sinc.close()
 
