@@ -1,8 +1,8 @@
 from pickle import dumps, loads
 from socketserver import BaseRequestHandler, ThreadingTCPServer
 from sys import getsizeof
-from message import Message
-from user_manager import UserManager
+from file_sync.message import Message
+from file_sync.user_manager import UserManager
 
 
 class Handler(BaseRequestHandler):
@@ -16,7 +16,6 @@ class Handler(BaseRequestHandler):
             self.request.sendall(Message('reply', 'No message received'))
         elif message.msg_type == 'signup':
             self.signup(message)
-
 
     def login(self, message):
         """Método para gerenciar login"""

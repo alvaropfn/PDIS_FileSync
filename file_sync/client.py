@@ -1,7 +1,7 @@
 from pickle import dumps, loads
 from socket import socket
 from sys import getsizeof
-from message import Message
+from file_sync.message import Message
 
 
 class Client:
