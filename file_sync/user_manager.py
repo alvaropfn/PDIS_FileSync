@@ -33,7 +33,7 @@ class UserManager:
                         for _ in range(29))
         try:
             self.cursor.execute('''INSERT INTO users (name, login, pwd, token)
-                                VALUES (?, ?, ?, ?)''', (name, login, password, token))
+                                VALUES (?, ?, ?, ?)''', (name, login, password, token,))
             self.connection.commit()
             return Message('response', 'User created')
         except sqlite3.Error as e:
@@ -46,12 +46,11 @@ class UserManager:
         if user is not None:
             token = ''.join(random.SystemRandom()
                             .choice(string.ascii_letters + string.digits)
-                            for _ in range(30))
+                            for _ in range(29))
             try:
                 self.cursor.execute('''UPDATE users
-                    SET token=? AND expiry_date=? WHERE login=?''',
-                                    (token,
-                                     datetime.datetime.now(), login))
+                    SET token=?, expiry_date=? WHERE login=?''',
+                                    (token, datetime.datetime.now() + datetime.timedelta(minutes=59), login))
                 self.connection.commit()
             except sqlite3.Error as e:
                 print(e.args[0])
@@ -69,4 +68,4 @@ class UserManager:
 
 user_manager = UserManager()
 user_manager.create_user('bledson', 'bled', '1234')
-user_manager.create_token('bled', '1234')
+user_manager.create_token('bled', 1234)
